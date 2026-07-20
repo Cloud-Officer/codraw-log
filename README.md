@@ -5,5 +5,5 @@ Log related tools, mainly for Monolog: decorated logger, Monolog handlers/proces
 ## Installation
 
 ```bash
-composer require codraw/
+composer require codraw/log
 ```
