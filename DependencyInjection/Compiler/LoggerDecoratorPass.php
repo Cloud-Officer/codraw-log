@@ -56,14 +56,17 @@ class LoggerDecoratorPass implements CompilerPassInterface
                     $bindings = $definition->getBindings();
 
                     if (isset($bindings['Psr\Log\LoggerInterface'])) {
-                        $argument = new Reference($bindings['Psr\Log\LoggerInterface']->getValues()[0]);
+                        $argument = $bindings['Psr\Log\LoggerInterface']->getValues()[0];
+                        if (!$argument instanceof Reference && !$argument instanceof Definition) {
+                            $argument = new Reference($argument);
+                        }
                     } else {
                         $argument = new Reference('logger');
                     }
 
                     $binding = new BoundArgument(
                         (clone $decoratorDefinition)
-                            ->setArgument('logger', $argument)
+                            ->setArgument('$logger', $argument)
                     );
 
                     // Mark the binding as used already, to avoid reporting it as unused if the service does not use a
@@ -96,8 +99,8 @@ class LoggerDecoratorPass implements CompilerPassInterface
         unset($tag['message']);
 
         return (new Definition(DecoratedLogger::class))
-            ->setArgument('defaultContext', $tag)
-            ->setArgument('decorateMessage', $message)
+            ->setArgument('$defaultContext', $tag)
+            ->setArgument('$decorateMessage', $message)
             ->addTag('kernel.reset', ['method' => 'reset'])
         ;
     }

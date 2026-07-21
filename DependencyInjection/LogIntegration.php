@@ -120,7 +120,7 @@ class LogIntegration implements IntegrationInterface, ContainerBuilderIntegratio
         foreach ($requestMatchers as $requestMatcher) {
             $chainRequestMatcherDefinition = new Definition(ChainRequestMatcher::class);
 
-            $duration = $requestMatcher['duration'] ?? $defaultDuration ?: 10000;
+            $duration = $requestMatcher['duration'] ?? $defaultDuration;
 
             $requestMatcherReferences[(int) $duration][] = $chainRequestMatcherDefinition;
 

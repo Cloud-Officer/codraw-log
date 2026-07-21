@@ -3,8 +3,9 @@
 namespace Draw\Component\Log\Monolog\Processor;
 
 use Monolog\LogRecord;
+use Symfony\Contracts\Service\ResetInterface;
 
-class DelayProcessor
+class DelayProcessor implements ResetInterface
 {
     private ?float $start = null;
 
