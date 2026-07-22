@@ -19,7 +19,7 @@ class LoggerDecoratorPass implements CompilerPassInterface
 
         foreach ($container->findTaggedServiceIds('logger.decorate') as $id => $tags) {
             if (!class_exists(DecoratedLogger::class)) {
-                throw new \RuntimeException('You need to install draw/log to use the logger.decorate tag.');
+                throw new \RuntimeException('You need to install codraw/log to use the logger.decorate tag.');
             }
 
             foreach ($tags as $tag) {
